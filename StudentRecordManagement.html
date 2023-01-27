@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    class Node {
+    constructor(data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class StudentTree {
+    constructor() {
+        this.root = null;
+    }
+
+    addStudent(id, name, marks) {
+        let percentage = (marks.reduce((a, b) => a + b, 0) / 5);
+        let student = { id: id, name: name, marks: marks, percentage: percentage };
+        let newNode = new Node(student);
+
+        if (this.root === null) {
+            this.root = newNode;
+        } else {
+            this.insertNode(this.root, newNode);
+        }
+    }
+
+    insertNode(node, newNode) {
+        if (newNode.data.percentage < node.data.percentage) {
+            if (node.left === null) {
+                node.left = newNode;
+            } else {
+                this.insertNode(node.left, newNode);
+            }
+        } else {
+            if (node.right === null) {
+                node.right = newNode;
+            } else {
+                this.insertNode(node.right, newNode);
+            }
+        }
+    }
+
+    searchStudent(name) {
+        return this.searchNode(this.root, name);
+    }
+
+    searchNode(node, name) {
+        if (node === null) {
+            return null;
+        }
+
+        if (node.data.name === name) {
+            return node.data;
+        }
+
+        if (name < node.data.name) {
+            return this.searchNode(node.left, name);
+        } else {
+            return this.searchNode(node.right, name);
+        }
+    }
+}
+
+// Example usage:
+let studentTree = new StudentTree();
+
+// Adding students
+studentTree.addStudent(1, "KB", [85, 90, 80, 75, 95]);
+studentTree.addStudent(2, "NG", [80, 85, 75, 90, 95]);
+studentTree.addStudent(3, "HS", [90, 85, 75, 80, 95]);
+
+// Searching for a student
+let student = studentTree.searchStudent("KB");
+console.log(student);
+</script>
+</html>
