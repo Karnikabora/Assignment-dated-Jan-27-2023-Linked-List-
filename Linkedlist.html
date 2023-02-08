@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+class Linkedlist {
+  constructor(value) {
+    this.head = {
+      value: value,
+      next: null,
+    };
+    this.tail = this.head;
+    // this.length = 1;
+  }
+  append(value) {
+    const newNode = new Node(value);
+    if (this.head == null) {
+      this.head = Node;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+      this.length++;
+    }
+  }
+  printlist() {
+    let currentHead = this.head;
+    let output = [];
+    while (currentHead !== null) {
+      output.push(currentHead.value);
+      currentHead = currentHead.next;
+    }
+    console.log(output);
+  }
+  prepend(value){
+    const newNode = new Node(value);
+    newNode.next=this.head;
+    this.head=newNode;
+    this.length++
+    return this
+  }
+  insert(value,index){// to add in middle
+            var x = new Node(value);
+            let i=1;    
+            let previousnode= this.head; 
+            while(i<index){ //used for traversing in linked list
+                previousnode= previousnode.next;
+                i++;
+            }
+            x.next=previousnode.next;
+            previousnode.next=x;
+            return this;
+        }
+    search(value){
+        let currentHead = this.head
+        while(currentHead !== null){
+            if (currentHead.value == value)return true;
+            currentHead = currentHead.next
+        }
+        return false
+    }
+
+}
+
+const n1 = new Linkedlist(1);
+n1.append(52);
+n1.append(25);
+n1.prepend(456);
+n1.insert(5000);
+console.log(n1.search(26))
+n1.printlist();
+
+// var obj1 = new Linkedlist(100);
+// Linkedlist.append(32);
+
+// console.log(obj1);
+
+    </script>
+</body>
+</html>
